@@ -1,19 +1,55 @@
-import { useDogs } from "../hooks/useDogs"
-function dogsPage() {
-const { dogs, isLoading, error } = useDogs();
+import { Button } from "@/components/ui/button";
+import { useDogs } from "../hooks/useDogs";
+import { Heart } from "lucide-react";
 
- 
-return (
-    <div className='flex'>
-    
-   {!isLoading && Object.keys(dogs.message).map((breed) => (
-          
-           <div key={breed} className="border p-2 rounded">
-               {breed} 
-           </div>
-       ))}
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+function DogsPage() {
+  const { dogs, isLoading, error } = useDogs();
+  console.log(dogs);
+
+  if (error) return <div>Erreur de chargement</div>;
+
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <h1 className="text-2xl font-bold text-black">La Meute</h1>
+      <div className="flex flex-wrap gap-4 columns-3 items-center justify-center">
+        {!isLoading && dogs ? (
+          dogs.map((dog: any) => (
+            <Card className="border-none w-[350px] shadow-md overflow-hidden">
+              <CardHeader>
+                <CardTitle className="flex justify-center items-center flex-row text-black">
+                  <span className="truncate">{dog.name.toUpperCase()}</span>
+                  <Button>
+                    <Heart />
+                  </Button>
+                </CardTitle>
+              </CardHeader>
+
+              <CardContent className="p-0">
+                <img
+                  className="w-full h-64 object-cover p-4 rounded-2xl"
+                  src={dog.image}
+                  alt={dog.name}
+                />
+              </CardContent>
+
+              <CardFooter className="flex items-center justify-center h-16">
+                <p>Un super {dog.name}</p>
+              </CardFooter>
+            </Card>
+          ))
+        ) : (
+          <p>Chargement...</p>
+        )}
+      </div>
     </div>
-  )
+  );
 }
 
-export default dogsPage
+export default DogsPage;

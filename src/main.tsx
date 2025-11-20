@@ -4,6 +4,7 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import DogsPage from "./pages/dogs"
 import App from "./App";
+import SignUpForm from "./components/SignUpForm";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,12 @@ const router = createBrowserRouter([
     path: "/dogs",
     element: <DogsPage/>,
   },
+  {
+    path: "/signup",
+    element: <SignUpForm/>,
+  },
+  
+
 ]);
 
 const root = document.getElementById("root");

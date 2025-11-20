@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ApiService from "@/services/apiService";
+import ApiService from "@/services/ApiService";
 export function useDogs() {
   const [dogs, setDogs] = useState<any>(null);
   const [isLoading, setLoading] = useState(true)
@@ -7,7 +7,7 @@ export function useDogs() {
   useEffect(() => {
    const fetchDogs = async() => {
     try {
-        const data = await ApiService.getAllDogs();
+        const data = await ApiService.getAllDogsPopulated();
         setDogs(data);
       } catch (err) {
         console.error(err);
