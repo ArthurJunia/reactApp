@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ApiService from "@/services/ApiService";
+import ApiService from "@/services/apiService";
 export function useDogs() {
   const [dogs, setDogs] = useState<any>(null);
   const [isLoading, setLoading] = useState(true)
