@@ -1,6 +1,6 @@
 export interface FormInterface {
-    nom:string
-    prenom:string
-    age:number
+    nom?:string
+    prenom?:string
+    age?:number
 
 }

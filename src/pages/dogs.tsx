@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useDogs } from "../hooks/useDogs";
 import { Heart } from "lucide-react";
-
 import {
   Card,
   CardContent,
@@ -9,10 +8,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useState } from "react";
 function DogsPage() {
   const { dogs, isLoading, error } = useDogs();
-  console.log(dogs);
+  const [isLiked, setLiked] = useState(false);
 
+  function handleHearthclicked() {
+    setLiked(!isLiked);
+  }
   if (error) return <div>Erreur de chargement</div>;
 
   return (
@@ -21,12 +24,16 @@ function DogsPage() {
       <div className="flex flex-wrap gap-4 columns-3 items-center justify-center">
         {!isLoading && dogs ? (
           dogs.map((dog: any) => (
-            <Card className="border-none w-[350px] shadow-md overflow-hidden">
+            <Card
+              className="border-none w-[350px] shadow-md overflow-hidden"
+              key={dog.name}
+            >
               <CardHeader>
                 <CardTitle className="flex justify-center items-center flex-row text-black">
                   <span className="truncate">{dog.name.toUpperCase()}</span>
-                  <Button>
-                    <Heart />
+
+                  <Button onClick={handleHearthclicked}>
+                    {isLiked ? <Heart className="text-red-500" /> : <Heart />}
                   </Button>
                 </CardTitle>
               </CardHeader>
