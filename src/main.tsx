@@ -1,15 +1,14 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, redirect } from "react-router";
 import { RouterProvider } from "react-router/dom";
-import DogsPage from "./pages/Dogs";
 import App from "./App";
 import SignUpForm from "./components/SignUpForm";
 import { getStorageValue } from "./hooks/useLocalStorage";
+import Dogs from "./pages/Dogs";
+import Fortnite from "./pages/Fortnite";
 const protectRouteLoader = async () => {
   const storedUser = getStorageValue("user", { nom: "", prenom: "", age: 0 });
-  console.log(storedUser);
   if (!storedUser || !storedUser.nom) {
-    console.log("Redirection...");
     throw redirect("/signup");
   }
 
@@ -22,8 +21,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/dogs",
-    element: <DogsPage />,
+    element: <Dogs />,
     loader: protectRouteLoader,
+  },
+  {
+    path: "/fortnite",
+    element: <Fortnite />,
   },
   {
     path: "/signup",

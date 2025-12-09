@@ -28,4 +28,10 @@ export default class ApiService {
         return populatedDogs;
     }
 
+    public static async getFortniteSkins() 
+    {
+        const res = await axios.get(`https://fortnite-api.com/v2/shop`);
+        return res.data;
+    }
+
 }

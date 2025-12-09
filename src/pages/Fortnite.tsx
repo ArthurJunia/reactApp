@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { useDogs } from "../hooks/useDogs";
 import { Heart } from "lucide-react";
 import {
   Card,
@@ -9,28 +8,30 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useState } from "react";
-function Dogs() {
-  const { dogs, isLoading, error } = useDogs();
+import { useFortnite } from "@/hooks/useFortnite";
+function Fortnite() {
+  const { skins, isFortniteLoading, fortniteError} = useFortnite();
+  console.log(skins);
   const [isLiked, setLiked] = useState(false);
 
   function handleHearthclicked() {
     setLiked(!isLiked);
   }
-  if (error) return <div>Erreur de chargement</div>;
+  if (fortniteError) return <div>Erreur de chargement</div>;
 
   return (
     <div className="flex flex-col items-center justify-center">
       <h1 className="text-2xl font-bold text-black">La Meute</h1>
       <div className="flex flex-wrap gap-4 columns-3 items-center justify-center">
-        {!isLoading && dogs ? (
-          dogs.map((dog: any) => (
+        {!isFortniteLoading && skins ? (
+          skins.data.entries.map((skin: any) => (
             <Card
               className="border-none w-[350px] shadow-md overflow-hidden"
-              key={dog.name}
+              key={skin.name}
             >
               <CardHeader>
                 <CardTitle className="flex justify-center items-center flex-row text-black">
-                  <span className="truncate">{dog.name.toUpperCase()}</span>
+                  <span className="truncate">{skin.devName.toUpperCase()}</span>
 
                   <Button onClick={handleHearthclicked}>
                     {isLiked ? <Heart className="text-red-500 " /> : <Heart />}
@@ -41,13 +42,12 @@ function Dogs() {
               <CardContent className="p-0">
                 <img
                   className="w-full h-64 object-cover p-4 rounded-2xl"
-                  src={dog.image}
-                  alt={dog.name}
+                 
                 />
               </CardContent>
 
               <CardFooter className="flex items-center justify-center h-16">
-                <p>Un super {dog.name}</p>
+                <p>Un super {skin.devName}</p>
               </CardFooter>
             </Card>
           ))
@@ -59,4 +59,4 @@ function Dogs() {
   );
 }
 
-export default Dogs;
+export default Fortnite;
