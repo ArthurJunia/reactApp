@@ -20,7 +20,7 @@ function DogsPage() {
   }
   const { dogs, isLoading, error } = useDogs();
   const [isLiked, setLiked] = useState(false);
-
+  console.log(dogs)
   function handleHearthclicked() {
     setLiked(!isLiked);
   }

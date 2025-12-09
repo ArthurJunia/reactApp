@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import ApiService from "@/services/ApiService";
+import type { Dog } from "@/types/Dog";
 export function useDogs() {
-  const [dogs, setDogs] = useState<any>(null);
+  const [dogs, setDogs] = useState<Dog[]>([]);
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState<boolean>(false);
   useEffect(() => {
