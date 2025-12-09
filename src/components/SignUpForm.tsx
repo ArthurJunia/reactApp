@@ -24,9 +24,10 @@ const SignUpForm = () => {
     };
 
     localStorage.setItem("user", JSON.stringify(data));
+    window.location.href = "/dogs";
   }
   return (
-    <Card className="border-none max-w-sm p-6 shadow-lg">
+    <Card className="border-none max-w-sm p-6 shadow-lg mx-auto mt-20">
       <form className="space-y-4" onSubmit={onSubmit}>
         <div className="space-y-2 text-center">
           <h1 className="font-bold text-2xl">Connectez-vous</h1>

@@ -33,7 +33,7 @@ function DogsPage() {
                   <span className="truncate">{dog.name.toUpperCase()}</span>
 
                   <Button onClick={handleHearthclicked}>
-                    {isLiked ? <Heart className="text-red-500" /> : <Heart />}
+                    {isLiked ? <Heart className="text-red-500 bg-red-500" /> : <Heart />}
                   </Button>
                 </CardTitle>
               </CardHeader>
