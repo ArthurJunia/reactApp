@@ -1,12 +1,14 @@
+import { useNavigate } from 'react-router';
 import './App.css'
-import { Button } from './components/ui/button'
-import { useDogs } from './hooks/useDogs'
+import { getStorageValue, useLocalStorage } from './hooks/useLocalStorage';
+import DogsPage from './pages/DogsPage'
 
 function App() {
   return (
     <>
+      <DogsPage />
     </>
-  )
+  );
 }
 
 export default App

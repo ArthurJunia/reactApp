@@ -9,7 +9,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useState } from "react";
+import { getStorageValue } from "@/hooks/useLocalStorage";
+import { useNavigate } from "react-router";
 function DogsPage() {
+   const userData = getStorageValue("user");
+  const navigate = useNavigate();
+  console.log(userData);
+  if (!userData) {
+    navigate("/signup");
+  }
   const { dogs, isLoading, error } = useDogs();
   const [isLiked, setLiked] = useState(false);
 

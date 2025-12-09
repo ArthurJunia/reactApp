@@ -21,7 +21,7 @@ function Fortnite() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="text-2xl font-bold text-black">La Meute</h1>
+      <h1 className="text-2xl font-bold text-black">Les skins</h1>
       <div className="flex flex-wrap gap-4 columns-3 items-center justify-center">
         {!isFortniteLoading && skins ? (
           skins.data.entries.map((skin: any) => (
