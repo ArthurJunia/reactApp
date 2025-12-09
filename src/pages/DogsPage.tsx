@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useState } from "react";
-function Dogs() {
+function DogsPage() {
   const { dogs, isLoading, error } = useDogs();
   const [isLiked, setLiked] = useState(false);
 
@@ -59,4 +59,4 @@ function Dogs() {
   );
 }
 
-export default Dogs;
+export default DogsPage;

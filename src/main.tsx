@@ -4,8 +4,8 @@ import { RouterProvider } from "react-router/dom";
 import App from "./App";
 import SignUpForm from "./components/SignUpForm";
 import { getStorageValue } from "./hooks/useLocalStorage";
-import Dogs from "./pages/Dogs";
 import Fortnite from "./pages/Fortnite";
+import DogsPage from "./pages/DogsPage";
 const protectRouteLoader = async () => {
   const storedUser = getStorageValue("user", { nom: "", prenom: "", age: 0 });
   if (!storedUser || !storedUser.nom) {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dogs",
-    element: <Dogs />,
+    element: <DogsPage />,
     loader: protectRouteLoader,
   },
   {
