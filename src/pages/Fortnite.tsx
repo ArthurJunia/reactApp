@@ -25,6 +25,7 @@ function Fortnite() {
       <div className="flex flex-wrap gap-4 columns-3 items-center justify-center">
         {!isFortniteLoading && skins ? (
           skins.data.entries.map((skin: any) => (
+            console.log(skin),
             <Card
               className="border-none w-[350px] shadow-md overflow-hidden"
               key={skin.name}
@@ -41,9 +42,8 @@ function Fortnite() {
 
               <CardContent className="p-0">
                 <img
-                  className="w-full h-64 object-cover p-4 rounded-2xl"
-                 
-                />
+                  className="w-full h-100 object-cover p-4 rounded-2xl"
+                  src={skin.bundle?.image || skin.brItems?.[0]?.images?.icon || skin.displayAssets?.[0]?.background}                />
               </CardContent>
 
               <CardFooter className="flex items-center justify-center h-16">
