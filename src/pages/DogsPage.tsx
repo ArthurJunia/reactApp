@@ -14,20 +14,20 @@ import type { Dog } from "@/types/Dog";
 import { useQuery } from "@tanstack/react-query";
 import ApiService from "@/services/ApiService";
 function DogsPage() {
-   const userData = getStorageValue("user");
+  const userData = getStorageValue("user");
   const navigate = useNavigate();
   console.log(userData);
   if (!userData) {
     navigate("/signup");
   }
   // const { dogs, isLoading, error } = useDogs();
-  const {data, isLoading, error} = useQuery<Dog[], Error>({
-    queryKey: ['dog-list'],
+  const { data, isLoading, error } = useQuery<Dog[], Error>({
+    queryKey: ["dog-list"],
     queryFn: () => ApiService.getAllDogsPopulated(),
-    retry:10
+    retry: 10,
   });
   const [isLiked, setLiked] = useState(false);
-  
+
   function handleHearthclicked() {
     setLiked(!isLiked);
   }
