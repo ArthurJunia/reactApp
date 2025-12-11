@@ -1,33 +1,40 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "./ui/card";
-import type { FormInterface } from "@/types/FormType";
-import type { FormEvent } from "react";
-
+import { useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 export const title = "Signup Form";
 
+const userFormSchema = z.object({
+  nom: z.string().min(2, "Le nom dois contenir au moins 2 caractères"),
+  prenom: z.string().min(2, "Le prénom dois contenir au moins 2 caractères"),
+  age: z.coerce.number().min(18, "vous devez avoir 18 ans ou plus"),
+});
+type UserFormData = z.infer<typeof userFormSchema>;
+
 const SignUpForm = () => {
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserFormData>({
+    defaultValues: {
+      nom: "",
+      prenom: "",
+      age: 25,
+    },
+  });
 
-    const formElement = e.currentTarget as HTMLFormElement;
-    const formData = new FormData(formElement);
-
-    const nomValue = formData.get("nom") as string;
-    const prenomValue = formData.get("prenom") as string;
-    const ageString = formData.get("age") as string;
-
-    const data: FormInterface = {
-      nom: nomValue,
-      prenom: prenomValue,
-      age: parseInt(ageString, 10),
-    };
+  function onSubmit(data: UserFormData) {
+    userFormSchema.parse(data);
     localStorage.setItem("user", JSON.stringify(data));
-    window.location.href = "/dogs";
+    navigate("/dogs");
   }
   return (
     <Card className="border-none max-w-sm p-6 shadow-lg mx-auto mt-20">
-      <form className="space-y-4" onSubmit={onSubmit}>
+      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-2 text-center">
           <h1 className="font-bold text-2xl">Connectez-vous</h1>
         </div>
@@ -36,9 +43,12 @@ const SignUpForm = () => {
           <Input
             className="bg-background"
             placeholder="Nom"
-            name="nom"
             type="string"
+            {...register("nom")}
           />
+          <span className="text-xs text-red-400">
+            {errors?.message}
+          </span>
         </div>
         <div className="flex flex-col items-start">
           <label htmlFor="prenom">Votre prénom</label>
@@ -47,7 +57,7 @@ const SignUpForm = () => {
             id="prenom"
             placeholder="Prenom"
             type="string"
-            name="prenom"
+            {...register("prenom")}
           />
         </div>
         <div className="flex flex-col items-start">
@@ -58,7 +68,7 @@ const SignUpForm = () => {
             id="age"
             placeholder="Age"
             type="number"
-            name="age"
+            {...register("age")}
           />
         </div>
         <Button className="w-full bg-black text-white" type="submit">
