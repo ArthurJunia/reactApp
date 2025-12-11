@@ -20,7 +20,6 @@ function DogsPage() {
   if (!userData) {
     navigate("/signup");
   }
-  // const { dogs, isLoading, error } = useDogs();
   const { data, isLoading, error } = useQuery<Dog[], Error>({
     queryKey: ["dog-list"],
     queryFn: () => ApiService.getAllDogsPopulated(),
