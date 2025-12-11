@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { useDogs } from "../hooks/useDogs";
 import { Heart } from "lucide-react";
 import {
   Card,
@@ -12,6 +11,8 @@ import { useState } from "react";
 import { getStorageValue } from "@/hooks/useLocalStorage";
 import { useNavigate } from "react-router";
 import type { Dog } from "@/types/Dog";
+import { useQuery } from "@tanstack/react-query";
+import ApiService from "@/services/ApiService";
 function DogsPage() {
    const userData = getStorageValue("user");
   const navigate = useNavigate();
@@ -19,9 +20,14 @@ function DogsPage() {
   if (!userData) {
     navigate("/signup");
   }
-  const { dogs, isLoading, error } = useDogs();
+  // const { dogs, isLoading, error } = useDogs();
+  const {data, isLoading, error} = useQuery<Dog[], Error>({
+    queryKey: ['dog-list'],
+    queryFn: () => ApiService.getAllDogsPopulated(),
+    retry:10
+  });
   const [isLiked, setLiked] = useState(false);
-  console.log(dogs)
+  
   function handleHearthclicked() {
     setLiked(!isLiked);
   }
@@ -31,8 +37,8 @@ function DogsPage() {
     <div className="flex flex-col items-center justify-center">
       <h1 className="text-2xl font-bold text-black">La Meute</h1>
       <div className="flex flex-wrap gap-4 columns-3 items-center justify-center">
-        {!isLoading && dogs ? (
-          dogs.map((dog: Dog) => (
+        {!isLoading && data ? (
+          data.map((dog: Dog) => (
             <Card
               className="border-none w-[350px] shadow-md overflow-hidden"
               key={dog.name}
