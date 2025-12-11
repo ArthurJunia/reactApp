@@ -22,7 +22,6 @@ const SignUpForm = () => {
       prenom: prenomValue,
       age: parseInt(ageString, 10),
     };
-
     localStorage.setItem("user", JSON.stringify(data));
     window.location.href = "/dogs";
   }

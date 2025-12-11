@@ -11,6 +11,7 @@ import {
 import { useState } from "react";
 import { getStorageValue } from "@/hooks/useLocalStorage";
 import { useNavigate } from "react-router";
+import type { Dog } from "@/types/Dog";
 function DogsPage() {
    const userData = getStorageValue("user");
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ function DogsPage() {
       <h1 className="text-2xl font-bold text-black">La Meute</h1>
       <div className="flex flex-wrap gap-4 columns-3 items-center justify-center">
         {!isLoading && dogs ? (
-          dogs.map((dog: any) => (
+          dogs.map((dog: Dog) => (
             <Card
               className="border-none w-[350px] shadow-md overflow-hidden"
               key={dog.name}
