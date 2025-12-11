@@ -1,11 +1,17 @@
 import type { FormInterface } from "@/types/FormType";
 import { useState, useEffect } from "react";
 
-export function getStorageValue(key:string) {
-  return localStorage.getItem(key);
+export function getStorageValue(key: string) {
+  const saved = localStorage.getItem(key);
+  if (!saved) return [];
+  try {
+    return JSON.parse(saved);
+  } catch {
+    return [];
+  }
 }
 
-export function setStorageValue(key:string, defaultValue:FormInterface) {
+export function setStorageValue<T>(key:string, defaultValue:  T): T {
   const saved = localStorage.getItem(key);
   if (saved) {
     return JSON.parse(saved);
