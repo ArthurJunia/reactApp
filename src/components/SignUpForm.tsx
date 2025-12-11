@@ -4,12 +4,13 @@ import { Card } from "./ui/card";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 export const title = "Signup Form";
 
 const userFormSchema = z.object({
   nom: z.string().min(2, "Le nom dois contenir au moins 2 caractères"),
   prenom: z.string().min(2, "Le prénom dois contenir au moins 2 caractères"),
-  age: z.coerce.number().min(18, "vous devez avoir 18 ans ou plus"),
+  age: z.number().int().min(18, "vous devez avoir 18 ans ou plus"),
 });
 type UserFormData = z.infer<typeof userFormSchema>;
 
@@ -20,6 +21,7 @@ const SignUpForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<UserFormData>({
+    resolver: zodResolver(userFormSchema),
     defaultValues: {
       nom: "",
       prenom: "",
@@ -46,9 +48,7 @@ const SignUpForm = () => {
             type="string"
             {...register("nom")}
           />
-          <span className="text-xs text-red-400">
-            {errors?.message}
-          </span>
+          {errors.nom && (<p className="text-red-500 text-sm">{errors.nom.message}</p>)}
         </div>
         <div className="flex flex-col items-start">
           <label htmlFor="prenom">Votre prénom</label>
@@ -59,6 +59,8 @@ const SignUpForm = () => {
             type="string"
             {...register("prenom")}
           />
+          {errors.prenom && (<p className="text-red-500 text-sm">{errors.prenom.message}</p>)}
+
         </div>
         <div className="flex flex-col items-start">
           <label htmlFor="age">Votre age</label>
