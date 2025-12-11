@@ -23,9 +23,7 @@ export default class ApiService {
                     subBreeds: dogs.message[breed]
                 };
             });
-
-        const populatedDogs = await Promise.all(requests);
-        return populatedDogs;
+        return await Promise.all(requests);
     }
 
     public static async getFortniteSkins() 

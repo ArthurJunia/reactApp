@@ -2,8 +2,7 @@ import type { FormInterface } from "@/types/FormType";
 import { useState, useEffect } from "react";
 
 export function getStorageValue(key:string) {
-  const saved = localStorage.getItem(key);
-  return saved;
+  return localStorage.getItem(key);
 }
 
 export function setStorageValue(key:string, defaultValue:FormInterface) {
