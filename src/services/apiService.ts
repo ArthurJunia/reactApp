@@ -3,12 +3,12 @@ import axios from 'axios';
 export default class ApiService {
     
     private static async getAllDogs() {
-        const res = await axios.get(`https://dog.ceo/api/breeds/list/all`);
+        const res = await axios.get(`${import.meta.env.VITE_DOG_API_URL}/breeds/list/all`);
         return res.data;
     }
 
     private static async getRandomDogImageByName(dogname:string) {
-        const res = await axios.get(`https://dog.ceo/api/breed/${dogname}/images/random`);
+        const res = await axios.get(`${import.meta.env.VITE_DOG_API_URL}/breed/${dogname}/images/random`);
         return res.data;
     }
 
@@ -28,7 +28,7 @@ export default class ApiService {
 
     public static async getFortniteSkins() 
     {
-        const res = await axios.get(`https://fortnite-api.com/v2/shop`);
+        const res = await axios.get(`${import.meta.env.VITE_FORTNITE_API_URL}/v2/shop`);
         return res.data;
     }
 

@@ -1,18 +1,18 @@
-import { useNavigate } from 'react-router';
 import './App.css'
 import { getStorageValue } from './hooks/useLocalStorage';
 import DogsPage from './pages/DogsPage'
+import Signup from './pages/SignUp'
 
 function App() {
   const userData = getStorageValue("user");
-  const navigate = useNavigate();
   console.log(userData);
-  if (!userData) {
-    navigate("/signup");
-  }
   return (
     <>
-      <DogsPage />
+    {userData && userData.length > 0
+      ? <>  <DogsPage />
+      </>
+      : <Signup />
+    }
     </>
   );
 }
