@@ -19,7 +19,7 @@ test("Le formulaire s'affiche avec les champs nom, prénom et âge", () => {
 
 test("Une erreur s'affiche si le nom est trop court à la soumission", async () => {
   renderForm();
-  fireEvent.change(screen.getByPlaceholderText("Test qui passe pas"), {
+  fireEvent.change(screen.getByPlaceholderText("Nom"), {
     target: { value: "A" },
   });
   fireEvent.click(screen.getByText("Connexion"));
